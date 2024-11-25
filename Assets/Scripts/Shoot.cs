@@ -17,18 +17,18 @@ public class Shoot
     [SerializeField] private float reloadTime = 1f;
     [SerializeField] private bool isPauseShoot;
     
-    [SerializeField] public int reservAmmo; 
+    [SerializeField] public int reservAmmo = 30; 
     [SerializeField] public int maxAmmo = 10; 
     [SerializeField] public int currentAmmo = 10; 
-    [SerializeField] public Text ammoText;
+    //[SerializeField] public Text ammoText;
     [SerializeField] public AudioSource fireSound;
     [SerializeField] public AudioSource reloadSound;
     [SerializeField] public bool isReloading = false;
     
-    public void UpdateAmmoCounter()
-    {
-        ammoText.text = currentAmmo + " / " + reservAmmo;
-    }
+    // public void UpdateAmmoCounter()
+    // {
+    //     ammoText.text = currentAmmo + " / " + reservAmmo;
+    // }
     
     public void StartShooting(Transform firePoint)
     {
@@ -36,8 +36,7 @@ public class Shoot
         {
             currentAmmo--;
             Debug.Log("Player patrons " + currentAmmo);
-            //ammoText.text = currentAmmo + " / " + reservAmmo;
-            UpdateAmmoCounter();
+            //UpdateAmmoCounter();
             Shooting(firePoint);
         }
     }
@@ -64,15 +63,13 @@ public class Shoot
             {
                 currentAmmo += shootAmmo;
                 reservAmmo -= shootAmmo;
-                //ammoText.text = currentAmmo + " / " + reservAmmo;
-                UpdateAmmoCounter();
+                //UpdateAmmoCounter();
             }
             else
             {
                 currentAmmo += reservAmmo;
                 reservAmmo = 0;
-                //ammoText.text = currentAmmo + " / " + reservAmmo;
-                UpdateAmmoCounter();
+                //UpdateAmmoCounter();
             }
         }
         shootAmmo = 0;
@@ -83,7 +80,6 @@ public class Shoot
     public void AddAmmo(int amount)
     {
         reservAmmo += amount;
-        //ammoText.text = currentAmmo + " / " + reservAmmo;
-        UpdateAmmoCounter();
+        //UpdateAmmoCounter();
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using player;
+using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour, IAlive
 {
@@ -7,6 +8,7 @@ public class Enemy : MonoBehaviour, IAlive
     [SerializeField] public Health health;
     [SerializeField] public CheckWin checkWin;
     [SerializeField] public GameObject moneyPrefab;
+    [SerializeField] public SpawnMoney spawnMoney;
     
     public void Update()
     {
@@ -19,7 +21,9 @@ public class Enemy : MonoBehaviour, IAlive
     public void Die()
     {
         Destroy(gameObject);
-        Instantiate(moneyPrefab, transform.position, transform.rotation);
+        int randomIndex = Random.Range(0, spawnMoney.moneyPrefabs.Length);
+        GameObject randomPrefabMoney = spawnMoney.moneyPrefabs[randomIndex];
+        Instantiate(randomPrefabMoney, transform.position, transform.rotation);
         checkWin.Check();
     }
 

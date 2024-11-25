@@ -8,26 +8,26 @@ using UnityEngine.UI;
 public class PLayerShooting : MonoBehaviour
 {
     [SerializeField] public Transform firePoint;
-    [SerializeField] private Shoot Shoot;
+    [SerializeField] private Player player;
     [SerializeField] private Trade trade;
 
     void Update()
     {
         
-        if (Input.GetButtonDown("Fire1") && Pause.isPaused == false && Shoot.isReloading == false && trade.isTrading == false)
+        if (Input.GetButtonDown("Fire1") && Pause.isPaused == false && player.shoot.isReloading == false && trade.isTrading == false)
         {
-            GetComponent<Player>().AnimationFire(Shoot.currentAmmo);
-            Shoot.StartShooting(firePoint);
+            GetComponent<Player>().AnimationFire(player.shoot.currentAmmo);
+            player.shoot.StartShooting(firePoint);
         }
         
-        if (Shoot.isReloading)
+        if (player.shoot.isReloading)
         {
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && Shoot.currentAmmo < Shoot.maxAmmo)
+        if (Input.GetKeyDown(KeyCode.R) && player.shoot.currentAmmo < player.shoot.maxAmmo)
         {
-            StartCoroutine(Shoot.Reload());
+            StartCoroutine(player.shoot.Reload());
         }
     }
 }

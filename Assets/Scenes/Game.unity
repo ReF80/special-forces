@@ -2891,7 +2891,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e248cb861734f4fab476cbc69fcd56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  throwForce: 10
+  grenadePrefab: {fileID: 0}
 --- !u!114 &96438880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4640,6 +4641,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2723481838145921545, guid: 4816422f6c2a7604da482efa0cbf9282, type: 3}
   m_PrefabInstance: {fileID: 156021342}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &157152670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 157152672}
+  - component: {fileID: 157152671}
+  m_Layer: 0
+  m_Name: SpawnMoneyMeneger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &157152671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157152670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4245b1ae9fdf46f6993c3bfa2e794ff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyPrefabs:
+  - {fileID: 1583152490}
+  - {fileID: 1834504398}
+--- !u!4 &157152672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157152670}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -33.017025, y: 0.7472776, z: -0.028995056}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &157211683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2723481838145921545, guid: 4816422f6c2a7604da482efa0cbf9282, type: 3}
@@ -14545,7 +14593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3181493890813394332, guid: 80e91a71c1f23c447bcedb6e7916f1ed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.91
       objectReference: {fileID: 0}
     - target: {fileID: 3181493890813394332, guid: 80e91a71c1f23c447bcedb6e7916f1ed, type: 3}
       propertyPath: m_LocalPosition.z
@@ -20566,7 +20614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &640056350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21347,6 +21395,10 @@ PrefabInstance:
       propertyPath: checkWin
       value: 
       objectReference: {fileID: 1385111223}
+    - target: {fileID: 3810357604960052786, guid: 72a0e438f7e82634ca941f76fa420a70, type: 3}
+      propertyPath: spawnMoney
+      value: 
+      objectReference: {fileID: 157152671}
     - target: {fileID: 3810357604960052786, guid: 72a0e438f7e82634ca941f76fa420a70, type: 3}
       propertyPath: moneyPrefab
       value: 
@@ -25467,6 +25519,7 @@ GameObject:
   - component: {fileID: 799811543}
   - component: {fileID: 799811544}
   - component: {fileID: 799811545}
+  - component: {fileID: 799811546}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -25671,7 +25724,6 @@ MonoBehaviour:
     reservAmmo: 30
     maxAmmo: 10
     currentAmmo: 10
-    ammoText: {fileID: 438864933}
     fireSound: {fileID: 799811540}
     reloadSound: {fileID: 799811541}
     isReloading: 0
@@ -25690,19 +25742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 236764976}
-  Shoot:
-    bulletPref: {fileID: 9063488592564272066, guid: e11622bc64b859f4dadbe404a5021e2c, type: 3}
-    bulletForce: 20
-    shootAmmo: 0
-    reloadTime: 1
-    isPauseShoot: 0
-    reservAmmo: 30
-    maxAmmo: 10
-    currentAmmo: 10
-    ammoText: {fileID: 438864933}
-    fireSound: {fileID: 799811540}
-    reloadSound: {fileID: 799811541}
-    isReloading: 0
+  player: {fileID: 799811535}
   trade: {fileID: 634733217}
 --- !u!114 &799811538
 MonoBehaviour:
@@ -26043,6 +26083,7 @@ MonoBehaviour:
   - {fileID: 52718585}
   _player: {fileID: 799811535}
   energyTabletsBoost: {fileID: 799811545}
+  ForwardMover: {fileID: 0}
 --- !u!114 &799811544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26069,6 +26110,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionTime: 20
+  player: {fileID: 799811535}
+--- !u!114 &799811546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799811528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 974e67c131b13d84a92290c2b42bc2e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoText: {fileID: 438864933}
+  pLayerShooting: {fileID: 799811536}
   player: {fileID: 799811535}
 --- !u!1 &804234346
 GameObject:
@@ -26444,6 +26500,10 @@ PrefabInstance:
       propertyPath: checkWin
       value: 
       objectReference: {fileID: 1385111223}
+    - target: {fileID: 3810357604960052786, guid: b3912f9514b6bc0479ff6348152121de, type: 3}
+      propertyPath: spawnMoney
+      value: 
+      objectReference: {fileID: 157152671}
     - target: {fileID: 3810357604960052786, guid: b3912f9514b6bc0479ff6348152121de, type: 3}
       propertyPath: moneyPrefab
       value: 
@@ -29789,10 +29849,14 @@ PrefabInstance:
     - target: {fileID: 2051417095301364409, guid: 74d675fe0e625684791b6c3e19a2fb30, type: 3}
       propertyPath: moneyPrefab
       value: 
-      objectReference: {fileID: 3719430943724154829, guid: 74d675fe0e625684791b6c3e19a2fb30, type: 3}
+      objectReference: {fileID: 1834504398}
     - target: {fileID: 3719430943724154829, guid: 74d675fe0e625684791b6c3e19a2fb30, type: 3}
       propertyPath: m_Name
       value: Money Big
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503513569079819232, guid: 74d675fe0e625684791b6c3e19a2fb30, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8481934330489861453, guid: 74d675fe0e625684791b6c3e19a2fb30, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40077,6 +40141,10 @@ PrefabInstance:
       propertyPath: checkWin
       value: 
       objectReference: {fileID: 1385111223}
+    - target: {fileID: 3810357604960052786, guid: 10be92cc3f50519499d5416dbeed72fa, type: 3}
+      propertyPath: spawnMoney
+      value: 
+      objectReference: {fileID: 157152671}
     - target: {fileID: 3810357604960052786, guid: 10be92cc3f50519499d5416dbeed72fa, type: 3}
       propertyPath: moneyPrefab
       value: 
@@ -56751,6 +56819,11 @@ Transform:
   - {fileID: 878876266}
   m_Father: {fileID: 634733218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1834504398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3719430943724154829, guid: 74d675fe0e625684791b6c3e19a2fb30, type: 3}
+  m_PrefabInstance: {fileID: 914215122}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1834738388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66269,6 +66342,7 @@ SceneRoots:
   - {fileID: 227322988}
   - {fileID: 96438881}
   - {fileID: 636727300}
+  - {fileID: 157152672}
   - {fileID: 640056350}
   - {fileID: 634733218}
   - {fileID: 1748248586}

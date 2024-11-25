@@ -9,6 +9,7 @@ public class Inventory : MonoBehaviour
     private PLayerShooting _pLayerShooting;
     private IItem[] _items = new IItem[5];
     public EnergyTabletsBoost energyTabletsBoost;
+    public ForwardMover ForwardMover; 
 
     void Update()
     {
@@ -48,6 +49,7 @@ public class Inventory : MonoBehaviour
                 _player.shoot.AddAmmo(ammo.Ammo);
                 break;
             case GrenadeData grenade:
+                ForwardMover.ThrowGrenade();
                 Debug.Log("Используется предмет grenade");
                 break;
             case EnergyTabletsData energyTablets:

@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AmmoController : MonoBehaviour
 {
     [SerializeField] public Text ammoText;
     [SerializeField] public PLayerShooting pLayerShooting;
-    [SerializeField] public Shoot Shoot;
+    [SerializeField] public Player player;
     
     private void Update() => UpdateAmmoCounter();
 
@@ -13,7 +14,7 @@ public class AmmoController : MonoBehaviour
     {
         if (pLayerShooting != null && ammoText != null)
         {
-            ammoText.text = Shoot.currentAmmo + " / " + Shoot.reservAmmo;
+            ammoText.text = player.shoot.currentAmmo + " / " + player.shoot.reservAmmo;
         }
     }
 }

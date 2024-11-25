@@ -8,7 +8,7 @@ using Trader;
 public class Player : MonoBehaviour, IAlive
 {
     [SerializeField] public Rigidbody2D rb;
-    [SerializeField] public float speed = 1.0f;
+    [SerializeField] public float speed ;
     [SerializeField] Vector2 moveVector;
     [SerializeField] public Animator animator;
     [SerializeField] public Camera cam;

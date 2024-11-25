@@ -7,7 +7,7 @@ namespace Trader
     {
         public Player player;
         [SerializeField] public GameObject moneyPrefab;
-        [SerializeField] protected int nominal = 1;
+        [SerializeField] protected int nominal;
 
         public void OnTriggerEnter2D(Collider2D other)
         {

@@ -35,8 +35,9 @@ public class DelayedExplosion : MonoBehaviour
                 alive.Health.Remove(damageAmount);
             }
         }
-        Debug.Log("Explode is compl");
+         //Debug.Log("Explode is compl");
         animator.SetBool("Explode", false);
+        DestroyGrenade();
     }
 
     private void DestroyGrenade()
