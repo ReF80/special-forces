@@ -213,6 +213,7 @@ MonoBehaviour:
     IsDead: 0
   checkWin: {fileID: 0}
   moneyPrefab: {fileID: 0}
+  spawnMoney: {fileID: 0}
 --- !u!95 &8751907591265218716
 Animator:
   serializedVersion: 5
@@ -255,12 +256,11 @@ MonoBehaviour:
     reservAmmo: 20
     maxAmmo: 5
     currentAmmo: 5
-    ammoText: {fileID: 0}
     fireSound: {fileID: 0}
     reloadSound: {fileID: 0}
     isReloading: 0
   _moveSpeed: 1
   _shootingRange: 7
-  _shootDelay: 1
+  _shootDelay: 2
   player: {fileID: 0}
   firePoint: {fileID: 8195657357861520847}

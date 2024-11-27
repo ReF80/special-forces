@@ -6,10 +6,12 @@ using UnityEngine.UIElements;
 
 public class OpenBox : MonoBehaviour
 {
-    [SerializeField] public Animator Animator1;
-    [SerializeField] public Animator Animator2;
     [SerializeField] private string Tag;
-    [SerializeField] public SpawnItems SpawnItems;
+    [SerializeField] private AudioSource openBoxSound;
+    
+    [SerializeField] public Animator animator1;
+    [SerializeField] public Animator animator2;
+    [SerializeField] public SpawnItems spawnItems;
     [SerializeField] public bool isOpen = false;
     [SerializeField] public Sprite newSprite;
     [SerializeField] public SpriteRenderer spriteRenderer;
@@ -17,8 +19,8 @@ public class OpenBox : MonoBehaviour
     
     private void Awake()
     {
-        Animator1 = GetComponent<Animator>();
-        Animator2 = GetComponent<Animator>();
+        animator1 = GetComponent<Animator>();
+        animator2 = GetComponent<Animator>();
     } 
     
     private void OnTriggerStay2D(Collider2D other)
@@ -38,11 +40,11 @@ public class OpenBox : MonoBehaviour
                 Open();
                 break;
             case "LeftCarDoor":
-                Animator1.Play("door_front_right_open");
+                animator1.Play("door_front_right_open");
                 Open();
                 break;
             case "RightCarDoor":
-                Animator2.Play("door_front_left_open");
+                animator2.Play("door_front_left_open");
                 Open();
                 break;
             case "Trader":
@@ -55,16 +57,16 @@ public class OpenBox : MonoBehaviour
     {
         if (!isOpen)
         {
-            int randomIndex1 = UnityEngine.Random.Range(0, SpawnItems.ItemPrefabs.Length);
-            int randomIndex2 = UnityEngine.Random.Range(0, SpawnItems.ItemPrefabs.Length);
-            GameObject randomPrefab1 = SpawnItems.ItemPrefabs[randomIndex1];
-            GameObject randomPrefab2 = SpawnItems.ItemPrefabs[randomIndex2];
+            int randomIndex1 = UnityEngine.Random.Range(0, spawnItems.ItemPrefabs.Length);
+            int randomIndex2 = UnityEngine.Random.Range(0, spawnItems.ItemPrefabs.Length);
+            var randomPrefab1 = spawnItems.ItemPrefabs[randomIndex1];
+            var randomPrefab2 = spawnItems.ItemPrefabs[randomIndex2];
                            
             isOpen = true;
             Instantiate(randomPrefab1, transform.position + new Vector3(-0.2f, 0f, 0f), Quaternion.identity);
             Instantiate(randomPrefab2, transform.position + new Vector3(0f, 0f, 0f), Quaternion.identity);
                 
-            //openBoxMessenge.Play(); 
+            openBoxSound.Play(); 
         }
     }
 }
