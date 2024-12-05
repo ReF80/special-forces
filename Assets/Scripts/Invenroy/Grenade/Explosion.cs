@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Invenroy.Grenade
 {
-    public class DelayedExplosion : MonoBehaviour
+    public class Explosion : MonoBehaviour
     {
         [SerializeField]
         private float _delayExplosion;
