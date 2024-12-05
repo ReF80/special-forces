@@ -1,18 +1,16 @@
 using UnityEngine;
 using player;
-using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour, IAlive
 {
     [SerializeField] private Animator anim;
     [SerializeField] public Health health;
     [SerializeField] public CheckWin checkWin;
-    [SerializeField] public GameObject moneyPrefab;
     [SerializeField] public SpawnMoney spawnMoney;
     
     public void Update()
     {
-        if (health.IsDead == true)
+        if (health.IsDead)
         {
             Die();
         }
@@ -31,4 +29,8 @@ public class Enemy : MonoBehaviour, IAlive
     
     public void StopAnimationHit() => anim.SetBool("Hit", false);
     public Health Health { get; }
+    public void TakeDamage(float damage)
+    {
+        health.Remove(damage);
+    }
 }

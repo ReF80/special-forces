@@ -1,20 +1,32 @@
+using System.Collections;
 using UnityEngine;
 
 public class ForwardMover : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField]private GameObject objectToThrow;
     private float throwForce = 10f;
+    private float maxDistance = 5f;
 
-    [SerializeField] private GameObject grenadePrefab;
-    public void ThrowGrenade()
+    public void Throw()
     {
-        GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation); // Instantiate grenade prefab
-        Rigidbody2D rb = grenade.GetComponent<Rigidbody2D>(); // Get Rigidbody component of the grenade
+        GameObject thrownObject = Instantiate(objectToThrow, transform.position, Quaternion.identity);
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 throwDirection = (mousePosition - (Vector2)transform.position).normalized;
+        thrownObject.GetComponent<Rigidbody2D>().linearVelocity = throwDirection * throwForce;
 
-        // Calculate throw direction using mouse position
-        Vector2 throwDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+        StartCoroutine(DistanceCheck(thrownObject));
+    }
 
-        // Apply throw force to the grenade
-        rb.AddForce(throwDirection * throwForce, ForceMode2D.Impulse);
+    private IEnumerator DistanceCheck(GameObject thrownObject)
+    {
+        Vector2 initialPosition = thrownObject.transform.position;
+        float distance = 0f;
+
+        while (distance < maxDistance)
+        {
+            distance = Vector2.Distance(thrownObject.transform.position, initialPosition);
+            yield return null;
+        }
+        thrownObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
     }
 }

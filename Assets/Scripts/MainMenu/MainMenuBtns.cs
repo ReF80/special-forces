@@ -5,6 +5,7 @@ public class MainMenuBtns : MonoBehaviour
 {
     public void LoadGame() //Button Start Game
     {
+        Controller.Instance.MusicSource.volume = 0;
         SceneManager.LoadScene(1);
     }
 
