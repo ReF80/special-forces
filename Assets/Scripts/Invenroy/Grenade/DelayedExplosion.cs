@@ -1,48 +1,45 @@
 using System.Collections;
-using ModestTree;
-using player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class DelayedExplosion : MonoBehaviour
+namespace Invenroy.Grenade
 {
-    public float blastRadius = 2f;
-    public float blastForce = 500f;
-    public float damage = 25f;
-    [SerializeField]private Animator explodeAnimation;
-    [SerializeField]private AudioSource explodeSound;
-    private bool isExploded = false;
-
-    void Start()
+    public class DelayedExplosion : MonoBehaviour
     {
-        StartCoroutine(Explode());
-    }
+        [SerializeField]
+        private float _delayExplosion;
+        [SerializeField]
+        private float _delayDestroy = 1f;
+        [SerializeField]
+        private float _blastRadius = 2f;
+        [SerializeField]
+        private float _blastForce = 500f;
+        [SerializeField]
+        private float _damage = 25f;
 
-    IEnumerator Explode()
-    {
-        yield return new WaitForSeconds(5f);
-
-        ExplodeGrenade();
-    }
-
-    void ExplodeGrenade()
-    {
-        if (isExploded) return;
-        // explodeAnimation.Play("New Animation");
-        // explodeSound.Play();
-        isExploded = true;
-        Debug.Log("VAR");
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, blastRadius);
-
-        foreach (Collider2D other in colliders)
+        private void Start()
         {
-            if (other.gameObject.TryGetComponent(out IAlive alive))
-            {
-                alive.TakeDamage(damage);
-            }
+            StartCoroutine(Explode());
         }
 
-        Debug.Log("2");
-        Destroy(gameObject);
+        private IEnumerator Explode()
+        {
+            yield return new WaitForSeconds(_delayExplosion);
+            ExplodeGrenade();
+        }
+
+        private void ExplodeGrenade()
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _blastRadius);
+
+            foreach (Collider2D other in colliders)
+            {
+                if (other.gameObject.TryGetComponent(out IAlive alive))
+                {
+                    alive.TakeDamage(_damage);
+                }
+            }
+
+            Destroy(gameObject, _delayDestroy);
+        }
     }
 }
