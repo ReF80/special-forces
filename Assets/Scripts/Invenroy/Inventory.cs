@@ -48,10 +48,6 @@ public class Inventory : MonoBehaviour
                 Debug.Log("Используется предмет ammo");
                 _player.shoot.AddAmmo(ammo.Ammo);
                 break;
-            case GrenadeData grenade:
-                ForwardMover.ThrowGrenade();
-                Debug.Log("Используется предмет grenade");
-                break;
             case EnergyTabletsData energyTablets:
                 Debug.Log("Используется предмет energy tablets");
                 energyTabletsBoost.Boost(energyTablets.AddSpeed);

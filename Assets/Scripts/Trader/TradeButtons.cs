@@ -9,7 +9,7 @@ namespace Trader
         [SerializeField] private AmmoData ammoData2;
         [SerializeField] private MedkitData medkitData;
         [SerializeField] private MedkitData bandageData;
-        [SerializeField] private GrenadeData grenadeData;
+        //[SerializeField] private GrenadeData grenadeData;
         [SerializeField] private EnergyTabletsData energyTabletsData;
         
         public int medkitPrice = 15;
@@ -63,7 +63,7 @@ namespace Trader
         {
             if (player.money.Value >= grenadePrice)
             {
-                inventory.TryAddItem(grenadeData);
+                //inventory.TryAddItem(grenadeData);
                 player.money.RemoveMoney(grenadePrice);
             }
         }

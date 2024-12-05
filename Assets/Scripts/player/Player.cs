@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using player;
 using Trader;
+using UnityEngine.Serialization;
 
 
 public class Player : MonoBehaviour, IAlive
@@ -19,7 +20,9 @@ public class Player : MonoBehaviour, IAlive
     [SerializeField] public Shoot shoot;
     [SerializeField] public MissionTextTyping MissionTextTyping;
     [SerializeField] private GameObject panelLose;
-
+    
+    [SerializeField] public ForwardMover forwardMover;
+    [SerializeField] private int grenadeAmount = 5;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -46,6 +49,12 @@ public class Player : MonoBehaviour, IAlive
         if (health.IsDead == true)
         {
             Die();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Q) && grenadeAmount > 0)
+        {
+            grenadeAmount -= 1;
+            forwardMover.Throw();
         }
     }
 
@@ -82,4 +91,8 @@ public class Player : MonoBehaviour, IAlive
     }
 
     public Health Health { get; }
+    public void TakeDamage(float damage)
+    {
+        health.Remove(damage);
+    }
 }

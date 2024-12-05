@@ -1,47 +1,48 @@
+using System.Collections;
+using ModestTree;
+using player;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class DelayedExplosion : MonoBehaviour
 {
-    [SerializeField] public float damageAmount = 50f;
-    [SerializeField] public float damageDelay = 10f;
-    [SerializeField] public float damageRadius = 5f;
-    [SerializeField] public Animator animator;
-    [SerializeField] private GameObject grenadePref;
+    public float blastRadius = 2f;
+    public float blastForce = 500f;
+    public float damage = 25f;
+    [SerializeField]private Animator explodeAnimation;
+    [SerializeField]private AudioSource explodeSound;
+    private bool isExploded = false;
 
-    private float _startTime;
-    
-    private void Start()
+    void Start()
     {
-        _startTime = Time.time;
+        StartCoroutine(Explode());
     }
 
-    private void Update()
+    IEnumerator Explode()
     {
-        if (Time.time >= _startTime + damageDelay)
-        {
-            Explode();
-        }
+        yield return new WaitForSeconds(5f);
+
+        ExplodeGrenade();
     }
 
-    private void Explode()
+    void ExplodeGrenade()
     {
-        animator.SetBool("Explode", true);
-        var colliders = Physics.OverlapSphere(transform.position, damageRadius);
-        foreach (Collider collider in colliders)
+        if (isExploded) return;
+        // explodeAnimation.Play("New Animation");
+        // explodeSound.Play();
+        isExploded = true;
+        Debug.Log("VAR");
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, blastRadius);
+
+        foreach (Collider2D other in colliders)
         {
-            if (collider.TryGetComponent(out IAlive alive))
+            if (other.gameObject.TryGetComponent(out IAlive alive))
             {
-                alive.Health.Remove(damageAmount);
+                alive.TakeDamage(damage);
             }
         }
-         //Debug.Log("Explode is compl");
-        animator.SetBool("Explode", false);
-        DestroyGrenade();
-    }
 
-    private void DestroyGrenade()
-    {
-        Destroy(grenadePref);
+        Debug.Log("2");
+        Destroy(gameObject);
     }
 }
