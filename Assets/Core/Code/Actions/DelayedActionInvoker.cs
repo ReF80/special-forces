@@ -1,15 +1,12 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Invenroy.Grenade
+namespace Core.Code.Actions
 {
-    public class DelayedAction : MonoBehaviour
+    public class DelayedActionInvoker : ActionInvoker
     {
         [SerializeField]
         private float _delay;
-        [SerializeField]
-        private UnityEvent _event;
 
         private void Start()
         {
@@ -19,7 +16,7 @@ namespace Invenroy.Grenade
         private IEnumerator Delay()
         {
             yield return new WaitForSeconds(_delay);
-            _event.Invoke();
+            InvokeAction();
         }
     }
 }

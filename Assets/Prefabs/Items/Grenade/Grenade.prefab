@@ -275,6 +275,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb290f9ad2b64ec6941f430e65ca668f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventN:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6912873197229054657}
+        m_TargetAssemblyTypeName: Invenroy.Grenade.SpawnAction, Assembly-CSharp
+        m_MethodName: Invoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4105622933554650526}
+        m_TargetAssemblyTypeName: Invenroy.Grenade.SpawnAction, Assembly-CSharp
+        m_MethodName: Invoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _delay: 1
   _event:
     m_PersistentCalls:

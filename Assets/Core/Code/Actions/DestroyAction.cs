@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Invenroy.Grenade
+namespace Core.Code.Actions
 {
 	public class DestroyAction : MonoBehaviour
 	{

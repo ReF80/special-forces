@@ -6,8 +6,9 @@ namespace Core.Code
 	public class EnemyData : ScriptableObject
 	{
 		[SerializeField]
-		private WeaponData _weapon;
+		private WeaponPreset _weaponToUse;
+		
 		[SerializeField]
-		private BulletData _bullet;
+		private BulletPreset _bulletsToShoot;
 	}
 }

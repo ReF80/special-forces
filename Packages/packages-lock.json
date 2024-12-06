@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "83d8a2b424a2ee7137f8671770e9acb2b9d325f0"
     },
+    "com.gameframe.sceneswitcher": {
+      "version": "https://github.com/coryleach/UnitySceneSwitcher.git#1.0.3",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7665663a7e36dba1ecba57d816efdfd871b373e3"
+    },
     "com.unity.2d.animation": {
       "version": "10.1.3",
       "depth": 1,
