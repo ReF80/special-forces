@@ -8,21 +8,24 @@ using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour, IAlive
 {
-    [SerializeField] public Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] public float speed ;
     [SerializeField] Vector2 moveVector;
-    [SerializeField] public Animator animator;
-    [SerializeField] public Camera cam;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Camera cam;
     [SerializeField] Vector2 mousePos;
     
     [SerializeField] public Health health;
     [SerializeField] public Money money;
     [SerializeField] public Shoot shoot;
-    [SerializeField] public MissionTextTyping MissionTextTyping;
+    [SerializeField] public GrenadeControl grenadeControl;
+    [SerializeField] private MissionTextTyping MissionTextTyping;
     [SerializeField] private GameObject panelLose;
     
     [SerializeField] public ForwardMover forwardMover;
-    [SerializeField] private int grenadeAmount = 5;
+    [SerializeField] public int grenadeAmount = 5;
+    [SerializeField] private AudioSource audioSource;
+    
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -53,8 +56,13 @@ public class Player : MonoBehaviour, IAlive
         
         if (Input.GetKeyDown(KeyCode.Q) && grenadeAmount > 0)
         {
-            grenadeAmount -= 1;
-            forwardMover.Throw();
+            if (grenadeAmount != 0)
+            {
+                audioSource.Play();
+                grenadeAmount -= 1;
+                grenadeControl.AmountController();
+                forwardMover.Throw();
+            }
         }
     }
 

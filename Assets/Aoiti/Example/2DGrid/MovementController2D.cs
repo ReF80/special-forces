@@ -123,7 +123,6 @@ public class MovementController2D : MonoBehaviour
                 pathLeftToGo = new List<Vector2>(path);
                 if (!snapToGrid) pathLeftToGo.Add(target);
             }
-
         }
         
     }

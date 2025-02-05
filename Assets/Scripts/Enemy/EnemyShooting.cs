@@ -4,10 +4,14 @@ using UnityEngine.Serialization;
 
 public class EnemyShooting : MonoBehaviour
 {
-    [SerializeField] private Shoot shoot;
-    [SerializeField] private float _moveSpeed = 1f;
-    [SerializeField] private float _shootingRange = 3f; 
-    [SerializeField] private float _shootDelay = 1f;
+    [SerializeField] 
+    private Shoot shoot;
+    [SerializeField] 
+    private float _moveSpeed = 1f;
+    [SerializeField] 
+    private float _shootingRange = 3f; 
+    [SerializeField] 
+    private float _shootDelay = 1f;
     
     public Transform player;
     public Transform firePoint;

@@ -1,18 +1,25 @@
 using System.Collections;
-using ModestTree;
-using player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DelayedExplosion : MonoBehaviour
 {
-    public float blastRadius = 2f;
-    public float blastForce = 500f;
-    public float damage = 25f;
-    [SerializeField]private Animator explodeAnimation;
-    [SerializeField]private AudioSource explodeSound;
-    private bool isExploded = false;
+    [SerializeField]
+    private float blastRadius = 2f;
+    [SerializeField]
+    private float blastForce = 500f;
+    [SerializeField]
+    private float damage = 25f;
+    [SerializeField]
+    private float delayDestroy = 1f;
+    [SerializeField] 
+    private float delayExplosion = 3f;
 
+    [SerializeField] 
+    private SpriteRenderer spriteRenderer;
+
+    [SerializeField] 
+    private GameObject exploreEffect;
+    
     void Start()
     {
         StartCoroutine(Explode());
@@ -20,18 +27,12 @@ public class DelayedExplosion : MonoBehaviour
 
     IEnumerator Explode()
     {
-        yield return new WaitForSeconds(5f);
-
+        yield return new WaitForSeconds(delayExplosion);
         ExplodeGrenade();
     }
 
     void ExplodeGrenade()
     {
-        if (isExploded) return;
-        // explodeAnimation.Play("New Animation");
-        // explodeSound.Play();
-        isExploded = true;
-        Debug.Log("VAR");
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, blastRadius);
 
         foreach (Collider2D other in colliders)
@@ -42,7 +43,8 @@ public class DelayedExplosion : MonoBehaviour
             }
         }
 
-        Debug.Log("2");
-        Destroy(gameObject);
+        spriteRenderer.sprite = null;
+        Instantiate(exploreEffect, transform.position, transform.rotation);
+        Destroy(gameObject, delayDestroy);
     }
 }

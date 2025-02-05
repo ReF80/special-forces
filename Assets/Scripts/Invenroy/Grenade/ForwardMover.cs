@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class ForwardMover : MonoBehaviour
 {
-    [SerializeField]private GameObject objectToThrow;
+    [SerializeField]
+    private GameObject objectToThrow;
+    [SerializeField]
     private float throwForce = 10f;
+    [SerializeField]
     private float maxDistance = 5f;
 
     public void Throw()

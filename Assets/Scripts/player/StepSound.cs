@@ -1,9 +1,11 @@
+using Trader;
 using UnityEngine;
 
 public class StepSound : MonoBehaviour
 {
     [SerializeField]  AudioSource moveSound;
     [SerializeField] Vector2 moveVector;
+    [SerializeField] public Trade trade;
 
     void Update()
     {
