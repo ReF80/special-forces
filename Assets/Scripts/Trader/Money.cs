@@ -11,6 +11,8 @@ namespace Trader
 
         [field: SerializeField] 
         public int Value { get; private set; } = 10;
+
+        public event Action UpdateMoney;
         
         public void AddMoney(int amount)
         {
@@ -24,6 +26,7 @@ namespace Trader
             {
                 Debug.Log("not enough money");
                 newValue = Value;
+                UpdateMoney?.Invoke();
             }
             Value = newValue;
         }

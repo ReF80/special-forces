@@ -1,33 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Trader;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
-public class PLayerShooting : MonoBehaviour
+namespace player
 {
-    [SerializeField] public Transform firePoint;
-    [SerializeField] private Player player;
-    [SerializeField] private Trade trade;
-
-    void Update()
+    public class PLayerShooting : MonoBehaviour
     {
-        
-        if (Input.GetButtonDown("Fire1") && Pause.isPaused == false && player.shoot.isReloading == false && trade.isTrading == false)
-        {
-            GetComponent<Player>().AnimationFire(player.shoot.currentAmmo);
-            player.shoot.StartShooting(firePoint);
-        }
-        
-        if (player.shoot.isReloading)
-        {
-            return;
-        }
+        [SerializeField] public Transform firePoint;
+        [SerializeField] private Player player;
+        [SerializeField] private Trade trade;
 
-        if (Input.GetKeyDown(KeyCode.R) && player.shoot.currentAmmo < player.shoot.maxAmmo)
+        public event Action OnFire;
+
+        private void Update()
         {
-            StartCoroutine(player.shoot.Reload());
+        
+            if (Input.GetButtonDown("Fire1") && Pause.isPaused == false && player.shoot.isReloading == false && trade.isTrading == false)
+            {
+                player.AnimationFire(player.shoot.currentAmmo);
+                player.shoot.StartShooting(firePoint);
+                OnFire?.Invoke();
+            }
+        
+            if (player.shoot.isReloading)
+            {
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.R) && player.shoot.currentAmmo < player.shoot.maxAmmo)
+            {
+                StartCoroutine(player.shoot.Reload());
+            }
         }
     }
 }

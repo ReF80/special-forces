@@ -1,27 +1,24 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Plane : MonoBehaviour
 {
     public Vector2[] pathPoints;
-    public float _speed;
-    public int _posIndex;
-    [SerializeField] private AudioSource _planeSounde;
-    [SerializeField] private Transform _player;
-    [SerializeField] private float _maxDistance;
-    [SerializeField] private float _minVolue;
-    [SerializeField] private float _maxVolue;
+    public float speed;
+    public int posIndex;
+    [SerializeField] private AudioSource planeSounde;
+    [SerializeField] private Transform player;
+    [SerializeField] private float maxDistance;
+    [SerializeField] private float minValue;
+    [SerializeField] private float maxValue;
 
     private void Update()
     {
-        if (_player != null && _planeSounde != null)
+        if (player != null && planeSounde != null)
         {
-            float _distance = Vector2.Distance(_player.position, transform.position);
-            float _normalizeDistance = Mathf.Clamp01(_distance / _maxDistance);
-            _planeSounde.volume = Mathf.Lerp(_maxVolue, _minVolue, _normalizeDistance);
+            float distance = Vector2.Distance(player.position, transform.position);
+            float normalizeDistance = Mathf.Clamp01(distance / maxDistance);
+            planeSounde.volume = Mathf.Lerp(maxValue, minValue, normalizeDistance);
         }
     }
 
@@ -34,18 +31,18 @@ public class Plane : MonoBehaviour
         }
     }
 
-    IEnumerator Move()
+    private IEnumerator Move()
     {
-        _planeSounde.Play();
+        planeSounde.Play();
         while (true)
         {
-            if (_posIndex < pathPoints.Length)
+            if (posIndex < pathPoints.Length)
             {
                 transform.position =
-                    Vector2.MoveTowards(transform.position, pathPoints[_posIndex], _speed * Time.deltaTime);
-                if ((Vector2)transform.position == pathPoints[_posIndex])
+                    Vector2.MoveTowards(transform.position, pathPoints[posIndex], speed * Time.deltaTime);
+                if ((Vector2)transform.position == pathPoints[posIndex])
                 {
-                    _posIndex++;
+                    posIndex++;
                 }
             }
             else yield break;

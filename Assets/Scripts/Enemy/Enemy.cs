@@ -1,5 +1,6 @@
 using UnityEngine;
 using player;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour, IAlive
 {
@@ -7,16 +8,13 @@ public class Enemy : MonoBehaviour, IAlive
     [SerializeField] public Health health;
     [SerializeField] public CheckWin checkWin;
     [SerializeField] public SpawnMoney spawnMoney;
-    
-    public void Update()
-    {
-        if (health.IsDead)
-        {
-            Die();
-        }
-    }
 
-    public void Die()
+    private void Start()
+    {
+        health.OnDeath += Die;
+    }
+    
+    private void Die()
     {
         Destroy(gameObject);
         int randomIndex = Random.Range(0, spawnMoney.moneyPrefabs.Length);
@@ -28,7 +26,7 @@ public class Enemy : MonoBehaviour, IAlive
     private void Awake() => anim = GetComponent<Animator>();
     
     public void StopAnimationHit() => anim.SetBool("Hit", false);
-    public Health Health { get; }
+
     public void TakeDamage(float damage)
     {
         health.Remove(damage);

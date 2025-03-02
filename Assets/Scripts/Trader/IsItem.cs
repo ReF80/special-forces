@@ -6,7 +6,5 @@ namespace Trader
     {
         [SerializeField] public GameObject itemPrefab;
         public IItem Item;
-        
-        
     }
 }

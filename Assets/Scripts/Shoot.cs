@@ -20,15 +20,11 @@ public class Shoot
     [SerializeField] public int reservAmmo = 30; 
     [SerializeField] public int maxAmmo = 10; 
     [SerializeField] public int currentAmmo = 10; 
-    //[SerializeField] public Text ammoText;
     [SerializeField] public AudioSource fireSound;
     [SerializeField] public AudioSource reloadSound;
     [SerializeField] public bool isReloading = false;
-    
-    // public void UpdateAmmoCounter()
-    // {
-    //     ammoText.text = currentAmmo + " / " + reservAmmo;
-    // }
+
+    public event Action OnReload;
     
     public void StartShooting(Transform firePoint)
     {
@@ -36,7 +32,6 @@ public class Shoot
         {
             currentAmmo--;
             Debug.Log("Player patrons " + currentAmmo);
-            //UpdateAmmoCounter();
             Shooting(firePoint);
         }
     }
@@ -63,23 +58,21 @@ public class Shoot
             {
                 currentAmmo += shootAmmo;
                 reservAmmo -= shootAmmo;
-                //UpdateAmmoCounter();
             }
             else
             {
                 currentAmmo += reservAmmo;
                 reservAmmo = 0;
-                //UpdateAmmoCounter();
             }
         }
         shootAmmo = 0;
         isReloading = false;
         Debug.Log("End reload. Patrons: " + currentAmmo);
+        OnReload?.Invoke();
     }
 
     public void AddAmmo(int amount)
     {
         reservAmmo += amount;
-        //UpdateAmmoCounter();
     }
 }

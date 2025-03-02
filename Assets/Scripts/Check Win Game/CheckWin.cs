@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class CheckWin : MonoBehaviour
 {
@@ -9,10 +9,7 @@ public class CheckWin : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] public MissionTextTyping missionTextTyping;
     
-    public void Check()
-    {
-        CheckDieEnemy();
-    }
+    public void Check() => CheckDieEnemy();
 
     private async Task CheckDieEnemy()
     {
@@ -23,7 +20,7 @@ public class CheckWin : MonoBehaviour
             missionTextTyping.WinMissionFunc();
             panel.SetActive(true);
             await Task.Delay(5000);
-            //SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

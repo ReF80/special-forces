@@ -3,11 +3,9 @@ using UnityEngine.UI;
 
 public class healthBar : MonoBehaviour
 {
-    [SerializeField] public Image health_Bar;
-    [SerializeField] public Player Player;
+    [SerializeField] public Image healthBarImage;
+    [SerializeField] public Player player;
 
-    public void Update()
-    {
-        health_Bar.fillAmount = Player.health.Value / Player.health.MaxValue;
-    }
+    private void Start() => player.health.OnHit += HealthBar;
+    private void HealthBar() => healthBarImage.fillAmount = player.health.Value / player.health.MaxValue;
 }

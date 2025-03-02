@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class bullet : MonoBehaviour
@@ -6,7 +7,7 @@ public class bullet : MonoBehaviour
     [SerializeField] public float distance;
     [SerializeField] public float damage;
     [SerializeField] public LayerMask whatIsSolid;
-
+    
     void Update()
     {
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, distance, whatIsSolid);

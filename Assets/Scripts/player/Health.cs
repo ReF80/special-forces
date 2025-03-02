@@ -16,6 +16,8 @@ namespace player
         
         [field: SerializeField]
         public float MinValue { get; set; } = 0f;
+        public event Action OnHit;
+        public event Action OnDeath;
 
         public bool IsDead;
         
@@ -35,8 +37,10 @@ namespace player
             if (newValue < MinValue)
             {
                 IsDead = true;
+                OnDeath?.Invoke();
             }
             Value = newValue;
+            OnHit?.Invoke();
         }
     }
 }

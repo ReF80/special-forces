@@ -5,60 +5,42 @@ public class Pause : MonoBehaviour
 {
     [SerializeField] public GameObject panel;
     public static bool isPaused;
-    public bool isSkills = true;
     public GameObject panelSkills;
     public GameObject GreenImage;
     public GameObject RedImage;
-    void Update()
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
                 Resume();
+                CloseSkills();
             }
             else
             {
-                Pause11();
-                if (isSkills)
-                {
-                    CloseSkills();
-                }
-                else
-                {
-                    OpenSkills();
-                }
+                StartPause();
             }
         }
     }
 
-    public void Resume()
+    private void Resume()
     {
         panel.SetActive(false); 
         Time.timeScale = 1f; 
         isPaused = false;
-        isSkills = false;
     }
 
-    private void Pause11()
+    private void StartPause()
     {
         panel.SetActive(true); 
         Time.timeScale = 0f; 
         isPaused = true; 
     }
     
-    public void OpenSkills()
-    {
-        panelSkills.SetActive(true);
-        isSkills = true;
-    }
-
-    public void CloseSkills()
-    {
-        panelSkills.SetActive(false);
-        isSkills = false;
-
-    }
+    public void OpenSkills() => panelSkills.SetActive(true);
+    public void CloseSkills() => panelSkills.SetActive(false);
     
     public void SkillUp()
     {

@@ -11,7 +11,7 @@ public class StepSound : MonoBehaviour
     {
         moveVector.x = Input.GetAxis("Horizontal");
         moveVector.y = Input.GetAxis("Vertical");
-        if (moveVector.x > 0 || moveVector.x < 0 || moveVector.y > 0 || moveVector.y < 0)
+        if ((moveVector.x > 0 || moveVector.x < 0 || moveVector.y > 0 || moveVector.y < 0) && !trade.isTrading)
         {
             if (moveSound.isPlaying) return;
             moveSound.Play();

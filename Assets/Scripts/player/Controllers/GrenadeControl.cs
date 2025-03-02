@@ -9,10 +9,6 @@ namespace player
         [SerializeField] private Text text;
         [SerializeField] public Player player;
 
-        public void AmountController()
-        {
-            text.text = player.grenadeAmount.ToString();
-        }
-        
+        public void AmountController() => text.text = player.grenadeAmount.ToString();
     }
 }

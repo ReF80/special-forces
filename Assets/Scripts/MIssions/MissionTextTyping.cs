@@ -5,57 +5,52 @@ using UnityEngine.UI;
 public class MissionTextTyping : MonoBehaviour
 {
     public Text textUI;
-    public GameObject _panelMessengeMenu;
-    public string StartText;
-    public string WinText;
+    public GameObject panelMessengeMenu;
+    public string startText;
+    public string winText;
     
     public float delay;
-    [SerializeField] AudioSource startMessengeAudioSource;
-    [SerializeField] private AudioSource _radioInterference;
-
+    [SerializeField] private AudioSource startMessengeAudioSource;
+    [SerializeField] private AudioSource radioInterference;
     [SerializeField] private AudioSource winMissionAudioSource;
 
-    private string currentText = "";
+    private string _currentText = "";
 
-    void Start()
-    {
-        StartCoroutine(StartMission());
-    }
+    private void Start() => StartCoroutine(StartMission());
 
     public void WinMissionFunc()
     {
-        _panelMessengeMenu.SetActive(true);
+        panelMessengeMenu.SetActive(true);
         StartCoroutine(WinMission());
     }
 
     public void LoseMission()
     {
-        _radioInterference.Play();
-        
+        radioInterference.Play();
     }
 
-    IEnumerator StartMission()
+    private IEnumerator StartMission()
     {
-        _radioInterference.Play();
-        for (int i = 0; i < StartText.Length; i++)
+        radioInterference.Play();
+        for (int i = 0; i < startText.Length; i++)
         {
-            currentText = StartText.Substring(0, i);
-            textUI.text = currentText;
+            _currentText = startText.Substring(0, i);
+            textUI.text = _currentText;
             yield return new WaitForSeconds(delay);
         }
-        currentText = "";
+        _currentText = "";
         yield return new WaitForSeconds (1);
         SeekMessengerMenu();
     }
 
-    IEnumerator WinMission()
+    private IEnumerator WinMission()
     {
-        _radioInterference.Play();
+        radioInterference.Play();
         winMissionAudioSource.Play();
-        for (int i = 0; i < WinText.Length; i++)
+        for (int i = 0; i < winText.Length; i++)
         {
-            currentText = WinText.Substring(0, i);
-            textUI.text = currentText;
+            _currentText = winText.Substring(0, i);
+            textUI.text = _currentText;
             yield return new WaitForSeconds(delay);
         }
         yield return new WaitForSeconds (1);
@@ -64,7 +59,7 @@ public class MissionTextTyping : MonoBehaviour
 
     void SeekMessengerMenu()
     {
-        _panelMessengeMenu.SetActive(false);
+        panelMessengeMenu.SetActive(false);
     }
     
 }

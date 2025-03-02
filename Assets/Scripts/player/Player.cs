@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using player;
 using Trader;
-using UnityEngine.Serialization;
 
 
 public class Player : MonoBehaviour, IAlive
@@ -25,7 +24,12 @@ public class Player : MonoBehaviour, IAlive
     [SerializeField] public ForwardMover forwardMover;
     [SerializeField] public int grenadeAmount = 5;
     [SerializeField] private AudioSource audioSource;
-    
+
+    private void Start()
+    {
+        health.OnDeath += StartDie;
+    }
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -79,16 +83,17 @@ public class Player : MonoBehaviour, IAlive
         }
     }
     public void StopAnimationFire() => animator.SetBool("Fire", false);
-    
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         rb.MovePosition(speed * Time.deltaTime * moveVector + rb.position);
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;
     }
-    
-    public async Task Die()
+
+    private void StartDie() => Die();
+    private async Task Die()
     { 
         MissionTextTyping.LoseMission();
         panelLose.SetActive(true);
@@ -98,7 +103,6 @@ public class Player : MonoBehaviour, IAlive
 
     }
 
-    public Health Health { get; }
     public void TakeDamage(float damage)
     {
         health.Remove(damage);

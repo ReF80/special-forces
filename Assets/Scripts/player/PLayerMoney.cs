@@ -9,9 +9,7 @@ namespace player
         [SerializeField] public Text moneyText;
         public Player player;
 
-        public void Update()
-        {
-            moneyText.text = player.money.Value.ToString();
-        }
+        private void Start() => player.money.UpdateMoney += UpdateMoneyText;
+        private void UpdateMoneyText() => moneyText.text = player.money.Value.ToString();
     }
 }

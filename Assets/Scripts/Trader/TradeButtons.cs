@@ -1,5 +1,5 @@
+using Invenroy;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Trader
 {
@@ -9,7 +9,6 @@ namespace Trader
         [SerializeField] private AmmoData ammoData2;
         [SerializeField] private MedkitData medkitData;
         [SerializeField] private MedkitData bandageData;
-        //[SerializeField] private GrenadeData grenadeData;
         [SerializeField] private EnergyTabletsData energyTabletsData;
         
         public int medkitPrice = 15;
@@ -27,8 +26,7 @@ namespace Trader
         {
             if (player.money.Value >= ammo1Price)
             {
-                inventory.TryAddItem(ammoData1);
-                player.money.RemoveMoney(ammo1Price);
+                Buy(ammoData1,ammo1Price);
             }
         }
         
@@ -36,8 +34,7 @@ namespace Trader
         {
             if (player.money.Value >= ammo2Price)
             {
-                inventory.TryAddItem(ammoData2);
-                player.money.RemoveMoney(ammo2Price);
+                Buy(ammoData2,ammo2Price);
             }
         }
         
@@ -45,8 +42,7 @@ namespace Trader
         {
             if (player.money.Value >= medkitPrice)
             {
-                inventory.TryAddItem(medkitData);
-                player.money.RemoveMoney(medkitPrice);
+                Buy(medkitData,medkitPrice);
             }
         }
         
@@ -54,8 +50,7 @@ namespace Trader
         {
             if (player.money.Value >= bandagePrice)
             {
-                inventory.TryAddItem(bandageData);
-                player.money.RemoveMoney(bandagePrice);
+                Buy(bandageData, bandagePrice);
             }
         }
         
@@ -63,7 +58,7 @@ namespace Trader
         {
             if (player.money.Value >= grenadePrice)
             {
-                //inventory.TryAddItem(grenadeData);
+                player.grenadeAmount += 1;
                 player.money.RemoveMoney(grenadePrice);
             }
         }
@@ -72,9 +67,14 @@ namespace Trader
         {
             if (player.money.Value >= energyTabletsPrice)
             {
-                inventory.TryAddItem(energyTabletsData);
-                player.money.RemoveMoney(energyTabletsPrice);
+                Buy(energyTabletsData,energyTabletsPrice);
             }
+        }
+
+        private void Buy(IItem item, int value)
+        {
+            inventory.TryAddItem(item);
+            player.money.RemoveMoney(value);
         }
     }
 }
