@@ -17,6 +17,7 @@ namespace Trader
         public void AddMoney(int amount)
         {
             Value += amount;
+            UpdateMoney?.Invoke();
         }
 
         public void RemoveMoney(int amount)

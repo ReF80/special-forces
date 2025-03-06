@@ -15,7 +15,7 @@ namespace player
         private void Update()
         {
         
-            if (Input.GetButtonDown("Fire1") && Pause.isPaused == false && player.shoot.isReloading == false && trade.isTrading == false)
+            if (Input.GetButtonDown("Fire1") && Pause.IsPaused == false && player.shoot.isReloading == false && trade.isTrading == false)
             {
                 player.AnimationFire(player.shoot.currentAmmo);
                 player.shoot.StartShooting(firePoint);

@@ -3,14 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuBtns : MonoBehaviour
 {
-    public void LoadGame() //Button Start Game
-    {
-        Controller.Instance.MusicSource.volume = 0;
-        SceneManager.LoadScene(1);
-    }
+    [SerializeField]
+    public GameObject panel;
+    
+    public void OpenOptions() => panel.SetActive(true);
+    public void CloseOptions() => panel.SetActive(false);
+    
+    public void LoadGame() => SceneManager.LoadScene(0);
 
-    public void ExitGame() // Button Exit
-    {
-        Application.Quit();
-    }
+    public void ExitGame() => Application.Quit();
 }

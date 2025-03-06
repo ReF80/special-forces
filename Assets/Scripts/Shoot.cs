@@ -39,8 +39,8 @@ public class Shoot
     public void Shooting(Transform firePoint)
     {
         fireSound.Play();
-        GameObject bullet = Object.Instantiate(bulletPref, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        var bullet = Object.Instantiate(bulletPref, firePoint.position, firePoint.rotation);
+        var rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
     }
     
@@ -74,5 +74,6 @@ public class Shoot
     public void AddAmmo(int amount)
     {
         reservAmmo += amount;
+        OnReload?.Invoke();
     }
 }
